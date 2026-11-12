@@ -1,0 +1,81 @@
+
+{
+  "judul": "Sistem Pakar Identifikasi Penyebab Printer Tidak Dapat Mencetak Dokumen",
+  "batas": "Sistem ini menggunakan panduan troubleshooting Microsoft dan HP untuk mengidentifikasi beberapa kemungkinan masalah printer. Aturan disusun sebagai penyederhanaan pengetahuan dan hanya menjadi saran awal, bukan diagnosis atau keputusan akhir.",
+
+  "sumber": {
+    "S1": "Fix printer connection and printing problems in Windows, Microsoft Support, https://support.microsoft.com/id-id/windows/hardware/printer/fix-printer-connection-and-printing-problems-in-windows, diakses 9 November 2026",
+    "S2": "HP printers – Cannot print, HP Support, https://support.hp.com/gb-en/document/ish_14746154-14746200-16, diakses 9 November 2026"
+  },
+
+  "pertanyaan": {
+    "kabel_usb_tidak_terhubung": "Apakah kabel USB printer tidak terhubung dengan benar?",
+    "wifi_berbeda_jaringan": "Apakah printer dan komputer terhubung ke jaringan WiFi yang berbeda?",
+    "printer_offline": "Apakah printer menunjukkan status offline?",
+    "antrean_cetak_menumpuk": "Apakah dokumen tertahan atau menumpuk dalam antrean cetak?",
+    "kertas_tersangkut": "Apakah terdapat kertas yang tersangkut di dalam printer?",
+    "driver_perlu_diperbarui": "Apakah driver printer perlu diperbarui?",
+    "printer_status_error": "Apakah printer menunjukkan status error?",
+    "persediaan_tinta_atau_kertas_rendah": "Apakah persediaan tinta atau kertas sedang rendah atau habis?"
+  },
+
+  "aturan": [
+    {
+      "id": "R1",
+      "jika": [
+        "kabel_usb_tidak_terhubung",
+        "wifi_berbeda_jaringan"
+      ],
+      "mode": "atau",
+      "maka": "koneksi_tidak_stabil",
+      "sumber": ["S1"]
+    },
+    {
+      "id": "R2",
+      "jika": [
+        "koneksi_tidak_stabil",
+        "printer_offline"
+      ],
+      "mode": "dan",
+      "maka": "gangguan_koneksi_printer",
+      "sumber": ["S1", "S2"]
+    },
+    {
+      "id": "R3",
+      "jika": [
+        "antrean_cetak_menumpuk"
+      ],
+      "mode": "dan",
+      "maka": "gangguan_antrean_cetak",
+      "sumber": ["S1", "S2"]
+    },
+    {
+      "id": "R4",
+      "jika": [
+        "kertas_tersangkut"
+      ],
+      "mode": "dan",
+      "maka": "gangguan_kertas_macet",
+      "sumber": ["S2"]
+    },
+    {
+      "id": "R5",
+      "jika": [
+        "driver_perlu_diperbarui"
+      ],
+      "mode": "dan",
+      "maka": "kemungkinan_masalah_driver",
+      "sumber": ["S1"]
+    },
+    {
+      "id": "R6",
+      "jika": [
+        "printer_status_error",
+        "persediaan_tinta_atau_kertas_rendah"
+      ],
+      "mode": "dan",
+      "maka": "perlu_periksa_persediaan_tinta_atau_kertas",
+      "sumber": ["S1"]
+    }
+  ]
+}
